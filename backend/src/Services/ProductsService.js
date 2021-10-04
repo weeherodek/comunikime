@@ -1,7 +1,8 @@
 const db = require("../Database");
 
 exports.createProduct = async (req, res) => {
-  const { name, description, quantity, value, image } = req.body;
+  const { name, description, quantity, value } = req.body;
+  let { image } = req.body;
 
   if (!name) {
     return res.status(400).json({
@@ -15,6 +16,11 @@ exports.createProduct = async (req, res) => {
       status: "Fail",
       message: "Sorry, quantity must be a number.",
     });
+  }
+
+  if (!image) {
+    image =
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png";
   }
 
   try {
